@@ -21,7 +21,7 @@
 		step?: number | [min: number, max: number];
 		/**
 		 * @default
-		 * 1000
+		 * 2500
 		 */
 		interval?: number;
 		children: Snippet<[Item]>;
@@ -33,7 +33,7 @@
 		min = 1000000,
 		max = 9999999,
 		step = [50, 100],
-		interval = 1000,
+		interval = 2500,
 		children,
 		...props
 	}: CounterRootProps = $props();
