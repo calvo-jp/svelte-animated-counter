@@ -21,23 +21,21 @@
 
 <style>
 	.counter.item {
-		display: inline-block;
-		height: 1em;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 1rem;
 		line-height: 1;
 	}
 
 	.counter.item > div {
-		width: 100%;
-		height: 100%;
+		height: 1em;
 		overflow-y: hidden;
 	}
 
 	.counter.item > div > div {
 		top: calc(var(--value) * -100%);
-		width: 100%;
-		height: 100%;
 		position: relative;
-		text-align: center;
 		white-space: pre;
 		transition: all 1s ease-in-out;
 	}
