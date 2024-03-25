@@ -10,3 +10,9 @@
 		/>
 	{/snippet}
 </Counter.Root>
+
+<Counter.Root style="margin-top:1rem;">
+	{#snippet children(item)}
+		<Counter.Item {item} />
+	{/snippet}
+</Counter.Root>
