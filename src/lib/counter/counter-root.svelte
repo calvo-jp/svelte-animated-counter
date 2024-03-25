@@ -64,7 +64,7 @@
 	});
 </script>
 
-<div class={cx('counter--root', className)} {style}>
+<div class={cx('counter root', className)} {style}>
 	{#each items as item}
 		{@render children(item)}
 	{/each}

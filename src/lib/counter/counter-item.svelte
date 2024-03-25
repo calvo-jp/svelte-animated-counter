@@ -13,25 +13,25 @@
 	let value = $derived(clamp(item.value, 0, 9));
 </script>
 
-<div class={cx('counter--item', className)} {style}>
+<div class={cx('counter item', className)} {style}>
 	<div style="--value: {value};">
 		<div>{'0123456789'.split('').join('\n')}</div>
 	</div>
 </div>
 
 <style>
-	.counter--item {
+	.counter.item {
 		position: relative;
 		line-height: 1;
 	}
 
-	.counter--item > div {
+	.counter.item > div {
 		width: 100%;
 		height: 100%;
 		overflow-y: hidden;
 	}
 
-	.counter--item > div > div {
+	.counter.item > div > div {
 		top: calc(var(--value) * -1em);
 		width: 100%;
 		height: 100%;
