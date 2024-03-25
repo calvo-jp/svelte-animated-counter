@@ -32,7 +32,7 @@
 	}
 
 	.counter.item > div > div {
-		top: calc(var(--value) * -1em);
+		top: calc(var(--value) * -100%);
 		width: 100%;
 		height: 100%;
 		position: relative;
