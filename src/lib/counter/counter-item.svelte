@@ -8,13 +8,13 @@
 		style?: string;
 	}
 
-	let { item, ...props }: CounterItemProps = $props();
+	let { item, style, class: className }: CounterItemProps = $props();
 
-	let index = $derived(clamp(item.value, 0, 9));
+	let value = $derived(clamp(item.value, 0, 9));
 </script>
 
-<div class={cx('counter--item', props.class)} style={props.style}>
-	<div style="--index: {index};">
+<div class={cx('counter--item', className)} {style}>
+	<div style="--value: {value};">
 		<div>{'0123456789'.split('').join('\n')}</div>
 	</div>
 </div>
@@ -32,7 +32,7 @@
 	}
 
 	.counter--item > div > div {
-		top: calc(var(--index) * -1em);
+		top: calc(var(--value) * -1em);
 		width: 100%;
 		height: 100%;
 		position: relative;

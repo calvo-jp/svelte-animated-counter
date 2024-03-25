@@ -35,7 +35,8 @@
 		step = [50, 100],
 		interval = 1500,
 		children,
-		...props
+		style,
+		class: className
 	}: CounterRootProps = $props();
 
 	let stepMin = $derived(Array.isArray(step) ? step[0] : step);
@@ -63,7 +64,7 @@
 	});
 </script>
 
-<div class={cx('counter--root', props.class)} style={props.style}>
+<div class={cx('counter--root', className)} {style}>
 	{#each items as item}
 		{@render children(item)}
 	{/each}
