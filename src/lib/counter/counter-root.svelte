@@ -33,7 +33,7 @@
 		min = 1000000,
 		max = 9999999,
 		step = [50, 100],
-		interval = 2500,
+		interval = 1500,
 		children,
 		...props
 	}: CounterRootProps = $props();
