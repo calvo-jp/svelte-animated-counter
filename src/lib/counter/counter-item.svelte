@@ -14,27 +14,19 @@
 </script>
 
 <div {...props}>
-	<span style="--value: {value};">
-		<span>{'0123456789'.split('').join('\n')}</span>
-	</span>
+	<span style="top: calc({value} * -100%);"> {'0123456789'.split('').join('\n')}</span>
 </div>
 
 <style>
 	div {
-		display: inline-block;
+		width: fit-content;
 		height: 1em;
+		display: inline-block;
+		overflow-y: hidden;
 		line-height: 1;
 	}
 
 	div > span {
-		width: 100%;
-		height: 100%;
-		overflow-y: hidden;
-		display: inline-block;
-	}
-
-	div > span > span {
-		top: calc(var(--value) * -100%);
 		width: 100%;
 		height: 100%;
 		position: relative;
