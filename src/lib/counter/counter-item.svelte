@@ -22,6 +22,8 @@
 <style>
 	.counter.item {
 		position: relative;
+		display: inline-block;
+		height: 1em;
 		line-height: 1;
 	}
 
@@ -29,6 +31,7 @@
 		width: 100%;
 		height: 100%;
 		overflow-y: hidden;
+		display: inline-block;
 	}
 
 	.counter.item > div > div {
