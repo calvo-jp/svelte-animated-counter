@@ -2,8 +2,8 @@
 	import { Counter } from '$lib';
 </script>
 
-<Counter.Root class="root">
+<Counter.Root>
 	{#snippet children(item)}
-		<Counter.Item {item} class="item" />
+		<Counter.Item {item} />
 	{/snippet}
 </Counter.Root>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Item } from './types';
-	import { clamp, cx } from './utils';
+	import { clamp } from './utils';
 
 	interface CounterItemProps {
 		item: Item;
@@ -8,33 +8,32 @@
 		style?: string;
 	}
 
-	let { item, style, class: className }: CounterItemProps = $props();
+	let { item, ...props }: CounterItemProps = $props();
 
 	let value = $derived(clamp(item.value, 0, 9));
 </script>
 
-<span class={cx('counter item', className)} {style}>
+<div {...props}>
 	<span style="--value: {value};">
 		<span>{'0123456789'.split('').join('\n')}</span>
 	</span>
-</span>
+</div>
 
 <style>
-	.counter.item {
-		position: relative;
+	div {
 		display: inline-block;
 		height: 1em;
 		line-height: 1;
 	}
 
-	.counter.item > div {
+	div > span {
 		width: 100%;
 		height: 100%;
 		overflow-y: hidden;
 		display: inline-block;
 	}
 
-	.counter.item > div > div {
+	div > span > span {
 		top: calc(var(--value) * -100%);
 		width: 100%;
 		height: 100%;
@@ -42,5 +41,6 @@
 		text-align: center;
 		white-space: pre;
 		transition: all 1s cubic-bezier(1, 0, 0, 1);
+		display: inline-block;
 	}
 </style>
