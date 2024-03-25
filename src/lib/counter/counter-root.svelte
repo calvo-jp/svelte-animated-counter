@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { Item } from './types';
-	import { clamp, randInt } from './utils';
+	import { clamp, cx, randInt } from './utils';
 
 	interface CounterRootProps {
 		/**
@@ -25,6 +25,8 @@
 		 */
 		interval?: number;
 		children: Snippet<[Item]>;
+		class?: string;
+		style?: string;
 	}
 
 	let {
@@ -32,7 +34,8 @@
 		max = 9999999,
 		step = [50, 100],
 		interval = 1000,
-		children
+		children,
+		...props
 	}: CounterRootProps = $props();
 
 	let stepMin = $derived(Array.isArray(step) ? step[0] : step);
@@ -60,6 +63,8 @@
 	});
 </script>
 
-{#each items as item}
-	{@render children(item)}
-{/each}
+<div class={cx('counter--root', props.class)} style={props.style}>
+	{#each items as item}
+		{@render children(item)}
+	{/each}
+</div>

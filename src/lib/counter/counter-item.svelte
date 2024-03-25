@@ -5,6 +5,7 @@
 	interface CounterItemProps {
 		item: Item;
 		class?: string;
+		style?: string;
 	}
 
 	let { item, ...props }: CounterItemProps = $props();
@@ -12,27 +13,26 @@
 	let index = $derived(clamp(item.value, 0, 9));
 </script>
 
-<div class={cx('counter', props.class)}>
+<div class={cx('counter--item', props.class)} style={props.style}>
 	<div style="--index: {index};">
 		<div>{'0123456789'.split('').join('\n')}</div>
 	</div>
 </div>
 
 <style>
-	.counter {
+	.counter--item {
 		position: relative;
-		display: inline-block;
 		line-height: 1em;
 		height: 1em;
 	}
 
-	.counter > div {
+	.counter--item > div {
 		height: 1em;
 		display: inline-block;
 		overflow-y: hidden;
 	}
 
-	.counter > div > div {
+	.counter--item > div > div {
 		top: calc(var(--index) * -1em);
 		height: 100%;
 		position: relative;
