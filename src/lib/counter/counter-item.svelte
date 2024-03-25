@@ -13,11 +13,11 @@
 	let value = $derived(clamp(item.value, 0, 9));
 </script>
 
-<div class={cx('counter item', className)} {style}>
-	<div style="--value: {value};">
-		<div>{'0123456789'.split('').join('\n')}</div>
-	</div>
-</div>
+<span class={cx('counter item', className)} {style}>
+	<span style="--value: {value};">
+		<span>{'0123456789'.split('').join('\n')}</span>
+	</span>
+</span>
 
 <style>
 	.counter.item {
