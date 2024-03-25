@@ -24,7 +24,7 @@
 		 * 2500
 		 */
 		interval?: number;
-		children: Snippet<[Item]>;
+		children: Snippet<[item: Item, index: number]>;
 		class?: string;
 		style?: string;
 	}
@@ -65,7 +65,7 @@
 </script>
 
 <div class={cx('counter root', className)} {style}>
-	{#each items as item}
-		{@render children(item)}
+	{#each items as item, index}
+		{@render children(item, index)}
 	{/each}
 </div>
