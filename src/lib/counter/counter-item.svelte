@@ -22,18 +22,18 @@
 <style>
 	.counter--item {
 		position: relative;
-		line-height: 1em;
-		height: 1em;
+		line-height: 1;
 	}
 
 	.counter--item > div {
-		height: 1em;
-		display: inline-block;
+		width: 100%;
+		height: 100%;
 		overflow-y: hidden;
 	}
 
 	.counter--item > div > div {
 		top: calc(var(--index) * -1em);
+		width: 100%;
 		height: 100%;
 		position: relative;
 		text-align: center;
