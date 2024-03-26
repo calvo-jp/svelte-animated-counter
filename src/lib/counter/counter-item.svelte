@@ -15,7 +15,7 @@
 
 <div class={cx('counter item', className)} {...props}>
 	<div style="--value: {value};">
-		<div>{'0123456789'.split('').join('\n')}</div>
+		<div>{'0123456789'.split('').join('\n\n')}</div>
 	</div>
 </div>
 
@@ -34,9 +34,9 @@
 	}
 
 	.counter.item > div > div {
-		top: calc(var(--value) * -100%);
+		top: calc(var(--value) * -200%);
 		position: relative;
 		white-space: pre;
-		transition: all 1s ease-in-out;
+		transition: top 1s ease-in-out;
 	}
 </style>

@@ -21,7 +21,7 @@
 		step?: number | [min: number, max: number];
 		/**
 		 * @default
-		 * 2500
+		 * 1500
 		 */
 		interval?: number;
 		children: Snippet<[item: Item, index: number]>;
