@@ -1,0 +1,24 @@
+<script lang="ts">
+  import type { SvelteHTMLElements } from 'svelte/elements';
+  import { cx } from './utils';
+
+  type Props = SvelteHTMLElements['span'];
+
+  let { class: className, children, ...props }: Props = $props();
+</script>
+
+<span class={cx('separator', className)} {...props}>
+  {#if children}
+    {@render children()}
+  {/if}
+</span>
+
+<style>
+  .separator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 1rem;
+    line-height: 1;
+  }
+</style>
