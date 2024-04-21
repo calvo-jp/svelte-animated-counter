@@ -1,1 +1,2 @@
-export * as Counter from './counter';
+export * as Counter from './counter/index.js';
+

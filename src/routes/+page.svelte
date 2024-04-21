@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { Counter } from '$lib';
+  import { Counter } from '$lib/index.js';
 </script>
 
 <svelte:head>
-  <title>Animated Counter</title>
+  <title>Svelte Animated Counter</title>
 </svelte:head>
 
 <Counter.Root style="display:flex;gap:0.25rem;">
