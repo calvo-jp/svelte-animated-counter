@@ -21,3 +21,5 @@ npm install svelte-animated-counter
   {/snippet}
 </Counter.Root>
 ```
+
+Checkout output here
