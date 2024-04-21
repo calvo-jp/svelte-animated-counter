@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import { clamp, cx, randInt } from './utils.js';
+  import { clamp } from '../clamp.js';
+  import { cx } from '../cx.js';
+  import { randInt } from '../rand-int.js';
 
   interface Props {
     /**
