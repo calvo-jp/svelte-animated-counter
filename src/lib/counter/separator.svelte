@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { SvelteHTMLElements } from 'svelte/elements';
-  import { cx } from './utils';
+  import { cx } from './utils.js';
 
   type Props = SvelteHTMLElements['span'];
 
