@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { clamp, cx } from './utils';
+  import { clamp, cx } from './utils.js';
 
   interface Props {
     value: number;
