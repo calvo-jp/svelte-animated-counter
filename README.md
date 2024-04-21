@@ -22,4 +22,4 @@ npm install svelte-animated-counter
 </Counter.Root>
 ```
 
-Checkout output here
+View demo [here](https://svelte-animated-counter-example.vercel.app/)
