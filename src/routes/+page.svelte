@@ -2,6 +2,10 @@
   import { Counter } from '$lib';
 </script>
 
+<svelte:head>
+  <title>Animated Counter</title>
+</svelte:head>
+
 <Counter.Root style="display:flex;gap:0.25rem;">
   {#snippet children(o)}
     {#if o.type === 'item'}
