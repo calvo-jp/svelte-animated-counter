@@ -4,25 +4,24 @@
 
   interface Props {
     /**
-     * @default
-     * 1000000
+     * @default 1000000
      */
     min?: number;
     /**
-     * @default
-     * 9999999
+     * @default 9999999
      */
     max?: number;
     /**
-     * @default
-     * [50, 100]
+     * @default [50, 100]
      */
     step?: number | [min: number, max: number];
     /**
-     * @default
-     * 1500
+     * @default 1500
      */
     interval?: number;
+    /**
+     * Set initial value of instead of random
+     */
     initialValue?: number;
     children: Snippet<
       [
