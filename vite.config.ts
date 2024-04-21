@@ -4,6 +4,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [sveltekit()],
   test: {
+    watch: false,
     include: ['src/**/*.{test,spec}.{js,ts}'],
   },
   server: {
