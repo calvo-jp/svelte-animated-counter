@@ -26,21 +26,20 @@
 <style>
   .item {
     display: inline-flex;
+    line-height: 1;
     align-items: center;
     justify-content: center;
-    height: 1rem;
-    line-height: 1;
   }
 
   .item > span {
     height: 1em;
-    display: inline-block;
+    display: block;
     overflow-y: hidden;
   }
 
   .item > span > span {
     top: calc(var(--value) * -200%);
-    display: inline-block;
+    display: block;
     position: relative;
     white-space: pre;
     transition: top 1s ease-in-out;

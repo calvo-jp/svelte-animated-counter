@@ -12,13 +12,3 @@
     {@render children()}
   {/if}
 </span>
-
-<style>
-  .separator {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 1rem;
-    line-height: 1;
-  }
-</style>
