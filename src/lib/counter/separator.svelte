@@ -2,9 +2,7 @@
   import type { SvelteHTMLElements } from 'svelte/elements';
   import { cx } from '../cx.js';
 
-  type Props = SvelteHTMLElements['span'];
-
-  let { class: className, children, ...props }: Props = $props();
+  let { class: className, children, ...props }: SvelteHTMLElements['span'] = $props();
 </script>
 
 <!--
