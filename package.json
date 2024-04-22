@@ -36,7 +36,6 @@
     "build": "vite build && npm run package",
     "preview": "vite preview",
     "package": "svelte-kit sync && svelte-package && publint",
-    "prepublishOnly": "npm run package",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "test": "vitest",
@@ -85,6 +84,14 @@
     },
     "github": {
       "release": false
+    },
+    "hooks": {
+      "before:init": [
+        "pnpm check"
+      ],
+      "after:bump": [
+        "pnpm package"
+      ]
     }
   },
   "clean-package": {
