@@ -41,7 +41,10 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "test": "vitest",
     "lint": "prettier --check . && eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore",
+    "release": "release-it"
   },
   "devDependencies": {
     "@sveltejs/adapter-vercel": "5.3.0",
@@ -74,5 +77,23 @@
   },
   "dependencies": {
     "zod": "3.23.0"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${npm.name} v${version}",
+      "tagName": "${npm.name}@${version}"
+    },
+    "github": {
+      "release": false
+    }
+  },
+  "clean-package": {
+    "remove": [
+      "dependencies",
+      "devDependencies",
+      "scripts",
+      "release-it",
+      "clean-package"
+    ]
   }
 }
