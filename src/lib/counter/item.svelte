@@ -8,18 +8,36 @@
     style?: string;
   }
 
-  let { value, style, class: className }: Props = $props();
+  let { ...props }: Props = $props();
 
-  let internalValue = $state(10);
+  let value = $state(10);
+  let content = '01234567890'.split('').join('\n\n');
 
   $effect(() => {
-    internalValue = clamp(value, 0, 9);
+    value = clamp(props.value, 0, 9);
   });
 </script>
 
-<span class={cx('item', className)} {style}>
-  <span style="--value: {internalValue};">
-    <span>{'01234567890'.split('').join('\n\n')}</span>
+<!--
+  @component
+
+  @example
+  ```svelte
+  <Counter.Root>
+    {#snippet children(o)}
+      {#if o.type === 'item'}
+        <Counter.Item value={o.value} />
+      {:else}
+        <Counter.Separator />
+      {/if}
+    {/snippet}
+  </Counter.Root>
+  ```
+-->
+
+<span class={cx('item', props.class)} style="--value:{value};{props.style}">
+  <span>
+    <span>{content}</span>
   </span>
 </span>
 
@@ -42,6 +60,8 @@
     display: block;
     position: relative;
     white-space: pre;
-    transition: top 1s ease-in-out;
+    transition-property: top;
+    transition-duration: var(--duration, 1500);
+    transition-timing-function: var(--easing, ease-in-out);
   }
 </style>

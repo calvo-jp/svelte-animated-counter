@@ -16,7 +16,7 @@ npm install svelte-animated-counter
     {#if o.type === 'item'}
       <Counter.Item value={o.value} />
     {:else}
-      <Counter.Separator>,</Counter.Separator>
+      <Counter.Separator />
     {/if}
   {/snippet}
 </Counter.Root>

@@ -1,8 +1,12 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import { type Snippet } from 'svelte';
   import { clamp } from '../clamp.js';
   import { cx } from '../cx.js';
   import { randInt } from '../rand-int.js';
+
+  type Step = number | [min: number, max: number] | { min: number; max: number };
+
+  type Context = { type: 'item'; value: number } | { type: 'separator'; value?: never };
 
   interface Props {
     /**
@@ -14,53 +18,79 @@
      */
     max?: number;
     /**
-     * @default [50, 100]
+     * @default
+     * [50, 100]
      */
-    step?: number | [min: number, max: number];
+    step?: Step;
     /**
      * @default 1500
      */
     interval?: number;
     /**
+     * @default 'ease-in-out'
+     */
+    easing?: string;
+    /**
      * Set initial value of instead of random
      */
     initialValue?: number;
-    children: Snippet<
-      [
-        | {
-            type: 'item';
-            value: number;
-          }
-        | {
-            type: 'separator';
-            value?: never;
-          },
-      ]
-    >;
+    children: Snippet<[Context]>;
     class?: string;
     style?: string;
   }
 
-  let {
-    min = 1000000,
-    max = 9999999,
-    step = [50, 100],
-    interval = 1500,
-    initialValue,
-    children,
-    style,
-    class: className,
-  }: Props = $props();
+  let { children, ...props }: Props = $props();
 
-  let stepMin = $derived(Array.isArray(step) ? step[0] : step);
-  let stepMax = $derived(Array.isArray(step) ? step[1] : step);
+  let config = $derived({
+    get min() {
+      return props.min ?? 1000000;
+    },
+    get max() {
+      return props.max ?? 9999999;
+    },
+    get step() {
+      if (!props.step) {
+        return {
+          min: 50,
+          max: 1000,
+        };
+      }
 
-  let currentValue = $state(
-    initialValue ? clamp(initialValue, min, max) : randInt(min, max),
-  );
+      if (typeof props.step === 'number') {
+        return {
+          min: props.step,
+          max: props.step,
+        };
+      }
+
+      if (Array.isArray(props.step)) {
+        return {
+          min: props.step[0],
+          max: props.step[1],
+        };
+      }
+
+      return {
+        min: props.step.min,
+        max: props.step.max,
+      };
+    },
+    get interval() {
+      return props.interval ?? 1500;
+    },
+    get initialValue() {
+      return props.initialValue ?? null;
+    },
+    get easing() {
+      return props.easing ?? 'ease-in-out';
+    },
+  });
+
+  let interval = $derived(props.interval ?? 1500);
+  let currentValue = $state(0);
 
   let values = $derived.by(() => {
-    let d = max.toString().length;
+    let d = config.max.toString().length;
     let s = currentValue.toString().padStart(d, '0');
     let l = s.split('');
 
@@ -76,12 +106,18 @@
     return v;
   });
 
+  $effect.pre(() => {
+    currentValue = config.initialValue
+      ? clamp(config.initialValue, config.min, config.max)
+      : randInt(config.min, config.max);
+  });
+
   $effect(() => {
     const timer = setInterval(() => {
-      const increment = randInt(stepMin, stepMax);
+      const increment = randInt(config.step.min, config.step.max);
       const newValue = currentValue + increment;
 
-      currentValue = clamp(newValue, min, max);
+      currentValue = clamp(newValue, config.min, config.max);
     }, interval);
 
     return () => {
@@ -90,7 +126,27 @@
   });
 </script>
 
-<div class={cx('counter', className)} {style}>
+<!--
+  @component
+
+  @example
+  ```svelte
+  <Counter.Root>
+    {#snippet children(o)}
+      {#if o.type === 'item'}
+        <Counter.Item value={o.value} />
+      {:else}
+        <Counter.Separator />
+      {/if}
+    {/snippet}
+  </Counter.Root>
+  ```
+-->
+
+<div
+  class={cx('counter', props.class)}
+  style="--duration:{config.interval / 2000}s;--easing:{config.easing};{props.style}"
+>
   {#each values as value}
     {#if typeof value === 'number'}
       {@render children({
