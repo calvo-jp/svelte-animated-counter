@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Counter, clamp } from '$lib/index.js';
-  import { z } from 'zod';
   import Button from './button.svelte';
   import FormGroup from './form-group.svelte';
   import FormInput from './form-input.svelte';
@@ -12,33 +11,14 @@
   let interval = $state(1500);
   let initialValue = $state(1000000);
 
-  let numberSchema = z
-    .string()
-    .optional()
-    .nullable()
-    .pipe(z.coerce.number().min(1))
-    .transform((v) => (isNaN(v) ? 1 : v));
+  function safeParseFloat(value: unknown, fallback = 0) {
+    if (typeof value === 'number') return isNaN(value) ? fallback : value;
+    if (typeof value !== 'string') return fallback;
 
-  let schema = z
-    .object({
-      min: numberSchema,
-      max: numberSchema,
-      step: z.array(numberSchema),
-      interval: numberSchema,
-      initialValue: numberSchema,
-    })
-    .transform((values) => {
-      values.min = clamp(values.min, values.max);
-
-      values.step =
-        values.step.length === 0
-          ? [50, 100]
-          : values.step.length === 1
-            ? [values.step[0], values.step[0]]
-            : [values.step[0], values.step[1]].toSorted((i, j) => i - j);
-
-      return values;
-    });
+    const n = parseFloat(value);
+    if (isNaN(n)) return fallback;
+    return n;
+  }
 </script>
 
 <svelte:head>
@@ -87,22 +67,30 @@
       e.preventDefault();
 
       const form = new FormData(e.currentTarget);
+      const data = {
+        min: safeParseFloat(form.get('min'), 1000000),
+        max: safeParseFloat(form.get('max'), 9999999),
+        step: [
+          safeParseFloat(form.get('min-step'), 50),
+          safeParseFloat(form.get('max-step'), 100),
+        ],
+        interval: safeParseFloat(form.get('interval'), 1500),
+        initialValue: safeParseFloat(form.get('initial-value'), 1000000),
+      };
 
-      const parsed = schema.safeParse({
-        min: form.get('min'),
-        max: form.get('max'),
-        step: [form.get('min-step'), form.get('max-step')],
-        interval: form.get('interval'),
-        initialValue: form.get('initial-value'),
-      });
+      data.max = data.max < 1 ? 1 : data.max;
+      data.min = clamp(data.min, 1, data.max);
+      data.step[0] = data.step[0] < 1 ? 1 : data.step[0];
+      data.step[1] = data.step[1] < 1 ? 1 : data.step[1];
+      data.step = data.step.toSorted((i, j) => i - j);
+      data.interval = data.interval < 1 ? 1 : data.interval;
+      data.initialValue = clamp(data.initialValue, data.min, data.max);
 
-      if (parsed.success) {
-        min = parsed.data.min;
-        max = parsed.data.max;
-        step = parsed.data.step as [number, number];
-        interval = parsed.data.interval;
-        initialValue = parsed.data.initialValue;
-      }
+      min = data.min;
+      max = data.max;
+      step = data.step as [number, number];
+      interval = data.interval;
+      initialValue = data.initialValue;
     }}
   >
     <div class="space-y-5">
