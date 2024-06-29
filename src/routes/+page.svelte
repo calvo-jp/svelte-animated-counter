@@ -60,10 +60,7 @@
       const data = {
         min: safeParseFloat(form.get('min'), 1000000),
         max: safeParseFloat(form.get('max'), 9999999),
-        step: [
-          safeParseFloat(form.get('min-step'), 50),
-          safeParseFloat(form.get('max-step'), 100),
-        ],
+        step: [safeParseFloat(form.get('min-step'), 50), safeParseFloat(form.get('max-step'), 100)],
         interval: safeParseFloat(form.get('interval'), 1500),
         initialValue: safeParseFloat(form.get('initial-value'), 1000000),
       };
