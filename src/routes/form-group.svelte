@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { cx } from '$lib/cx.js';
   import type { SvelteHTMLElements } from 'svelte/elements';
+  import { cx } from './utils.js';
 
   let { class: className, children, ...props }: SvelteHTMLElements['div'] = $props();
 </script>

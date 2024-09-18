@@ -1,3 +1,4 @@
-export { default as Item } from './item.svelte';
-export { default as Root } from './root.svelte';
-export { default as Separator } from './separator.svelte';
+export * as Counter from './counter.js';
+export type { CounterItemProps } from './item.svelte';
+export type { CounterProps } from './root.svelte';
+export type { CounterSeparatorProps } from './separator.svelte';

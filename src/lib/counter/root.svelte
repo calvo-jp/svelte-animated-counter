@@ -1,14 +1,19 @@
-<script lang="ts">
-  import { type Snippet } from 'svelte';
-  import { clamp } from '../clamp.js';
-  import { cx } from '../cx.js';
-  import { randInt } from '../rand-int.js';
+<script lang="ts" module>
+  import type { Snippet } from 'svelte';
 
   type Step = number | [min: number, max: number] | { min: number; max: number };
 
-  type Context = { type: 'item'; value: number } | { type: 'separator'; value?: never };
+  type Context =
+    | {
+        type: 'item';
+        value: number;
+      }
+    | {
+        type: 'separator';
+        value?: never;
+      };
 
-  interface Props {
+  export interface CounterProps {
     /**
      * @default 1000000
      */
@@ -38,8 +43,13 @@
     class?: string;
     style?: string;
   }
+</script>
 
-  let { children, ...props }: Props = $props();
+<script lang="ts">
+  import { clamp } from '../clamp.js';
+  import { randInt } from '../rand-int.js';
+
+  let { style, children, ...props }: CounterProps = $props();
 
   let config = $derived({
     get min() {
@@ -144,8 +154,10 @@
 -->
 
 <div
-  class={cx('counter', props.class)}
-  style="--duration:{config.interval / 2000}s;--easing:{config.easing};{props.style}"
+  style="--duration:{config.interval / 2000}s;--easing:{config.easing};{style}"
+  data-scope="counter"
+  data-part="item"
+  {...props}
 >
   {#each values as value}
     {#if typeof value === 'number'}

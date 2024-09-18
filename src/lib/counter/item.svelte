@@ -1,14 +1,15 @@
-<script lang="ts">
-  import { clamp } from '../clamp.js';
-  import { cx } from '../cx.js';
-
-  interface Props {
+<script lang="ts" module>
+  export interface CounterItemProps {
     value: number;
     class?: string;
     style?: string;
   }
+</script>
 
-  let { ...props }: Props = $props();
+<script lang="ts">
+  import { clamp } from '../clamp.js';
+
+  let { style, ...props }: CounterItemProps = $props();
 
   let value = $state(10);
   let content = '01234567890'.split('').join('\n\n');
@@ -35,27 +36,27 @@
   ```
 -->
 
-<span class={cx('item', props.class)} style="--value:{value};{props.style}">
+<span style="--value:{value};{style}" data-scope="counter" data-part="item" {...props}>
   <span>
     <span>{content}</span>
   </span>
 </span>
 
 <style>
-  .item {
+  [data-scope='counter'][data-part='item'] {
     display: inline-flex;
     line-height: 1;
     align-items: center;
     justify-content: center;
   }
 
-  .item > span {
+  [data-scope='counter'][data-part='item'] > span {
     height: 1em;
     display: block;
     overflow-y: hidden;
   }
 
-  .item > span > span {
+  [data-scope='counter'][data-part='item'] > span > span {
     top: calc(var(--value) * -200%);
     display: block;
     position: relative;

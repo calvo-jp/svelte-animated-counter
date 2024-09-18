@@ -1,8 +1,13 @@
-<script lang="ts">
+<script lang="ts" module>
   import type { SvelteHTMLElements } from 'svelte/elements';
-  import { cx } from '../cx.js';
 
-  let { class: className, children, ...props }: SvelteHTMLElements['span'] = $props();
+  type BaseProps = SvelteHTMLElements['span'];
+
+  export interface CounterSeparatorProps extends BaseProps {}
+</script>
+
+<script lang="ts">
+  let { children, ...props }: CounterSeparatorProps = $props();
 </script>
 
 <!--
@@ -22,7 +27,7 @@
   ```
 -->
 
-<span class={cx('separator', className)} {...props}>
+<span data-scope="counter" data-part="separator" {...props}>
   {#if children}
     {@render children()}
   {:else}
